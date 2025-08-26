@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -70,6 +71,8 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    // Navega para a home após o login
+                    context.go('/home');
                   },
                   child: const Text('Entrar'),
                 ),
@@ -84,6 +87,8 @@ class LoginScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
+                   // Navega para a tela de cadastro
+                  context.go('/cadastro');
                 },
                 child: Text(
                   'Não tem conta? Cadastrar',
