@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/login_screen.dart';
-import 'package:myapp/splash_screen.dart';
+import 'package:myapp/router.dart'; // Importe o router
 import 'package:provider/provider.dart';
 
 void main() {
@@ -90,15 +89,12 @@ class MyApp extends StatelessWidget {
 
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
-        return MaterialApp(
+        return MaterialApp.router(
+          routerConfig: router, // Use o router aqui
           title: 'ECO COLETA',
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeProvider.themeMode,
-          home: const SplashScreen(),
-          routes: {
-            '/login': (context) => const LoginScreen(),
-          },
           debugShowCheckedModeBanner: false,
         );
       },
