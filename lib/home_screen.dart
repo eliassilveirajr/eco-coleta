@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
           _buildDrawerItem(icon: Icons.person, text: 'Perfil', onTap: () => context.go('/home/perfil')),
           _buildDrawerItem(icon: Icons.history, text: 'Histórico', onTap: () => context.go('/home')),
           _buildDrawerItem(icon: Icons.calendar_today, text: 'Agendamento', onTap: () {}),
-          _buildDrawerItem(icon: Icons.swap_horiz, text: 'Trocas', onTap: () {}),
+          _buildDrawerItem(icon: Icons.swap_horiz, text: 'Trocas', onTap: () => context.go('/home/trocas')),
           _buildDrawerItem(icon: Icons.settings, text: 'Configurações', onTap: () {}),
           const Divider(),
           _buildDrawerItem(icon: Icons.exit_to_app, text: 'Sair', onTap: () => context.go('/login')),
