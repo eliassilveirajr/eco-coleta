@@ -50,7 +50,7 @@ Este documento descreve o projeto "Eco Coleta", um aplicativo Flutter baseado em
 ### Frame 4: Tela Principal (Dashboard com Histórico) (`/home`)
 *   **UI:**
     *   **AppBar Customizado:** Ícone de menu (hambúrguer) à esquerda e logo "ECO COLETA" no centro.
-    *   **Card de Saldo:** Exibe a foto do perfil, nome do usuário ("José"), "Saldo Cashback" (e.g., R$ 50,00) e "Saldo de Pontos" (e.g., 50).
+    *   **Card de Saldo:** Exibe a foto do perfil, nome do usuário ("Luiz"), "Saldo Cashback" (e.g., R$ 50,00) e "Saldo de Pontos" (e.g., 50).
     *   **Seção de Histórico:** Lista de coletas anteriores com data, tipo de material e valor/pontos correspondentes.
     *   **Menu Lateral (Drawer):** Acessado pelo ícone de menu. Contém links para:
         *   Perfil
@@ -101,3 +101,10 @@ O desenvolvimento seguirá esta ordem, implementando tela por tela, começando p
 2.  **Finalizar Login e Cadastro:** Implementar a navegação entre a tela de login e cadastro.
 3.  **Desenvolver a `HomeScreen`:** Criar a estrutura da tela principal com o menu lateral (Drawer).
 4.  **Implementar as telas restantes:** Desenvolver iterativamente as telas de Perfil, Agendamento e Trocas.
+
+---
+
+## 5. Personalização da Marca
+
+*   **Nome do Aplicativo:** O nome de exibição do app foi alterado para **"Eco Coleta"** no arquivo `AndroidManifest.xml`.
+*   **Ícone do Aplicativo:** O ícone foi gerado a partir do arquivo de logo em `assets/images/icon.png` usando o pacote `flutter_launcher_icons`.

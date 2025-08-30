@@ -14,7 +14,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3),
-      () => context.go('/login')); // Navegação com go_router
+      // Correção: Usando pushReplacement para evitar loops de redirecionamento.
+      () => context.pushReplacement('/login'));
   }
 
   @override
@@ -28,10 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
             width: double.infinity,     
             height: double.infinity,    
           ),
-          Center(
+          const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end, 
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.only(bottom: 50.0),
                   child: CircularProgressIndicator(
