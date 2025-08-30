@@ -84,6 +84,22 @@ Este documento descreve o projeto "Eco Coleta", um aplicativo Flutter baseado em
     *   Visualizar e editar as informações do perfil.
     *   Gerenciar agendamentos de coleta.
 
+### Tela de Configurações (`/configuracoes`)
+*   **UI:**
+    *   Título da tela: "Configurações".
+    *   **Opção de Notificações:**
+        *   Texto "Notificações" ao lado de um componente de switch (liga/desliga).
+    *   **Opção de Tema:**
+        *   Texto "Tema do Aplicativo".
+        *   Botões de seleção para "Claro", "Escuro" e "Sistema".
+    *   **Links Informativos:**
+        *   Item de lista "Termos de Serviço".
+        *   Item de lista "Política de Privacidade".
+*   **Funcionalidade:**
+    *   Permitir ao usuário ligar ou desligar as notificações (funcionalidade a ser implementada).
+    *   Permitir ao usuário alterar o tema do aplicativo em tempo real.
+    *   Navegar para telas ou modais informativos para Termos de Serviço e Política de Privacidade (a serem criados).
+
 ### Frame 9: Notificação
 *   **UI:**
     *   Um pop-up ou mensagem informativa.
