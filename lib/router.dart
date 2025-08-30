@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myapp/agendamento_screen.dart';
 import 'package:myapp/cadastro_screen.dart';
 import 'package:myapp/configuracoes_screen.dart';
 import 'package:myapp/home_screen.dart';
 import 'package:myapp/login_screen.dart';
+import 'package:myapp/novo_agendamento_screen.dart';
 import 'package:myapp/profile_screen.dart';
 import 'package:myapp/splash_screen.dart';
 import 'package:myapp/trocas_screen.dart';
@@ -44,7 +46,6 @@ final GoRouter router = GoRouter(
               return const ProfileScreen();
             },
           ),
-          // 2. Adicionei a nova rota para a tela de trocas
           GoRoute(
             path: 'trocas', // O path é relativo: /home/trocas
             builder: (BuildContext context, GoRouterState state) {
@@ -57,6 +58,19 @@ final GoRouter router = GoRouter(
               return const ConfiguracoesScreen();
             },
           ),
+          GoRoute(
+              path: 'agendamento', // O path é relativo: /home/agendamento
+              builder: (BuildContext context, GoRouterState state) {
+                return const AgendamentoScreen();
+              },
+              routes: [
+                GoRoute(
+                  path: 'novo', // O path é relativo: /home/agendamento/novo
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const NovoAgendamentoScreen();
+                  },
+                ),
+              ]),
         ]),
   ],
 );
