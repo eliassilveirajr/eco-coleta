@@ -1,9 +1,49 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+// Importe as telas que serão usadas na navegação
+import 'package:myapp/agendamento_screen.dart';
+import 'package:myapp/configuracoes_screen.dart';
+import 'package:myapp/profile_screen.dart';
+import 'package:myapp/trocas_screen.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0; // Índice da tela selecionada
+
+  // Lista de telas que o Drawer pode navegar
+  static const List<Widget> _widgetOptions = <Widget>[
+    DashboardContent(), // O conteúdo original da HomeScreen
+    ProfileScreen(),
+    AgendamentoScreen(),
+    TrocasScreen(),
+    ConfiguracoesScreen(),
+  ];
+
+  // Lista de títulos correspondentes a cada tela
+  static const List<String> _widgetTitles = <String>[
+    'ECO COLETA',
+    'Meu Perfil',
+    'Agendamentos',
+    'Trocas e Recompensas',
+    'Configurações',
+  ];
+
+  // Método chamado quando um item do drawer é tocado
+  void _onSelectItem(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.pop(context); // Fecha o drawer
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +51,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF0F4F0),
       appBar: AppBar(
         title: Text(
-          'ECO COLETA',
+          _widgetTitles[_selectedIndex], // Título dinâmico
           style: GoogleFonts.oswald(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -22,14 +62,117 @@ class HomeScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: _buildDrawer(context),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildSaldoCard(context),
-          const SizedBox(height: 24),
-          _buildHistoricoSection(context),
+      body: _widgetOptions.elementAt(_selectedIndex), // Corpo dinâmico
+    );
+  }
+
+  Drawer _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.person, size: 40, color: Colors.grey),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Luiz',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _buildDrawerItem(
+            icon: Icons.home,
+            text: 'Início',
+            isSelected: _selectedIndex == 0,
+            onTap: () => _onSelectItem(0),
+          ),
+          _buildDrawerItem(
+            icon: Icons.person,
+            text: 'Perfil',
+            isSelected: _selectedIndex == 1,
+            onTap: () => _onSelectItem(1),
+          ),
+          _buildDrawerItem(
+            icon: Icons.calendar_today,
+            text: 'Agendamento',
+            isSelected: _selectedIndex == 2,
+            onTap: () => _onSelectItem(2),
+          ),
+          _buildDrawerItem(
+            icon: Icons.swap_horiz,
+            text: 'Trocas',
+            isSelected: _selectedIndex == 3,
+            onTap: () => _onSelectItem(3),
+          ),
+          _buildDrawerItem(
+            icon: Icons.settings,
+            text: 'Configurações',
+            isSelected: _selectedIndex == 4,
+            onTap: () => _onSelectItem(4),
+          ),
+          const Divider(),
+          _buildDrawerItem(
+            icon: Icons.exit_to_app,
+            text: 'Sair',
+            onTap: () => context.go('/login'),
+          ),
         ],
       ),
+    );
+  }
+
+  // Widget para os itens do Drawer, com feedback visual de seleção
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String text,
+    bool isSelected = false,
+    required GestureTapCallback onTap,
+  }) {
+    final theme = Theme.of(context);
+    return ListTile(
+      leading: Icon(icon, color: isSelected ? theme.colorScheme.primary : null),
+      title: Text(
+        text,
+        style: TextStyle(
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          color: isSelected ? theme.colorScheme.primary : null,
+        ),
+      ),
+      tileColor: isSelected ? theme.colorScheme.primary.withOpacity(0.1) : null,
+      onTap: onTap,
+    );
+  }
+}
+
+
+// Widget para o conteúdo original da tela inicial (Dashboard)
+class DashboardContent extends StatelessWidget {
+  const DashboardContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: [
+        _buildSaldoCard(context),
+        const SizedBox(height: 24),
+        _buildHistoricoSection(context),
+      ],
     );
   }
 
@@ -81,7 +224,7 @@ class HomeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Histórico',
+          'Histórico Recente',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
@@ -110,55 +253,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
-    );
-  }
-
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 40, color: Colors.grey),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Luiz',
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          _buildDrawerItem(icon: Icons.person, text: 'Perfil', onTap: () => context.go('/home/perfil')),
-          _buildDrawerItem(icon: Icons.history, text: 'Histórico', onTap: () => context.go('/home')),
-          _buildDrawerItem(icon: Icons.calendar_today, text: 'Agendamento', onTap: () => context.go('/home/agendamento')),
-          _buildDrawerItem(icon: Icons.swap_horiz, text: 'Trocas', onTap: () => context.go('/home/trocas')),
-          _buildDrawerItem(icon: Icons.settings, text: 'Configurações', onTap: () => context.go('/home/configuracoes')),
-          const Divider(),
-          _buildDrawerItem(icon: Icons.exit_to_app, text: 'Sair', onTap: () => context.go('/login')),
-        ],
-      ),
-    );
-  }
-
-  ListTile _buildDrawerItem({required IconData icon, required String text, required GestureTapCallback onTap}) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(text),
-      onTap: onTap,
     );
   }
 }
