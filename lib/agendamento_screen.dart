@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,9 +36,7 @@ class AgendamentoScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Meus Agendamentos'),
-      ),
+      // A AppBar foi removida, pois agora é controlada pela HomeScreen
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemCount: agendamentos.length,
@@ -78,8 +77,8 @@ class AgendamentoScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Ação para navegar para a tela de novo agendamento (será criada)
-           context.go('/home/agendamento/novo');
+          // Navega para a nova rota de nível superior
+          context.go('/novo-agendamento');
         },
         label: const Text('Novo Agendamento'),
         icon: const Icon(Icons.add),
