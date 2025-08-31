@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -6,27 +8,19 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // O Scaffold não precisa mais de AppBar, pois a HomeScreen já fornece uma.
     return Scaffold(
       backgroundColor: const Color(0xFFF0F4F0),
-      appBar: AppBar(
-        title: Text(
-          'Meu Perfil',
-          style: GoogleFonts.oswald(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 80.0), // Adicionado padding inferior extra
         children: [
           _buildProfileHeader(context),
           const SizedBox(height: 24),
           _buildInfoCard(context),
           const SizedBox(height: 24),
           _buildStatsSection(context),
+          // Um SizedBox extra no final pode garantir que o conteúdo role para cima da barra de navegação
+          const SizedBox(height: 40),
         ],
       ),
     );
@@ -78,7 +72,11 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerRight,
-              child: ElevatedButton(onPressed: () {}, child: const Text('Editar Perfil')),
+              // CORREÇÃO: Usando context.push para empilhar a rota
+              child: ElevatedButton(
+                onPressed: () => context.push('/editar-perfil'),
+                child: const Text('Editar Perfil'),
+              ),
             )
           ],
         ),
