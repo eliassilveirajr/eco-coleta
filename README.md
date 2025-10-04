@@ -52,4 +52,4 @@ Siga as instruções abaixo para configurar o ambiente de desenvolvimento e roda
 
 Você pode testar o aplicativo baixando a versão de lançamento (APK) diretamente pelo link abaixo:
 
-*   **[Baixar Eco Coleta v1.0.0](https://github.com/eliassilveirajr/eco-coleta/releases/download/release/eco-coleta_v1.0.0.apk)**  
+*   **[Baixar Eco Coleta v1.0.0](https://github.com/eliassilveirajr/eco-coleta/releases/download/release/eco-coleta-v1.0.0.apk)**  
