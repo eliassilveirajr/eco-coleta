@@ -61,82 +61,84 @@ class _NovoAgendamentoScreenState extends State<NovoAgendamentoScreen> {
       appBar: AppBar(
         title: const Text('Novo Agendamento'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Dropdown para seleção de material
-            DropdownButtonFormField<String>(
-              value: _selectedMaterial,
-              isExpanded: true,
-              decoration: const InputDecoration(
-                labelText: 'Tipo de Material',
-                prefixIcon: Icon(Icons.recycling),
-                border: OutlineInputBorder(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Dropdown para seleção de material
+              DropdownButtonFormField<String>(
+                value: _selectedMaterial,
+                isExpanded: true,
+                decoration: const InputDecoration(
+                  labelText: 'Tipo de Material',
+                  prefixIcon: Icon(Icons.recycling),
+                  border: OutlineInputBorder(),
+                ),
+                hint: const Text('Selecione o material para a coleta'),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedMaterial = newValue;
+                  });
+                },
+                items: _materials.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
-              hint: const Text('Selecione o material para a coleta'),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedMaterial = newValue;
-                });
-              },
-              items: _materials.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // Seletor de data
-            ListTile(
-              leading: const Icon(Icons.calendar_today),
-              title: const Text('Data da Coleta'),
-              subtitle: Text(_selectedDate == null
-                  ? 'Nenhuma data selecionada'
-                  : '${_selectedDate!.day.toString().padLeft(2, '0')}/${_selectedDate!.month.toString().padLeft(2, '0')}/${_selectedDate!.year}'),
-              onTap: () => _selectDate(context),
-            ),
-            const Divider(),
-
-            // Seletor de hora
-            ListTile(
-              leading: const Icon(Icons.access_time),
-              title: const Text('Hora da Coleta'),
-              subtitle: Text(_selectedTime == null
-                  ? 'Nenhuma hora selecionada'
-                  : _selectedTime!.format(context)),
-              onTap: () => _selectTime(context),
-            ),
-            const Spacer(),
-
-            // Botão de confirmação
-            ElevatedButton.icon(
-              icon: const Icon(Icons.check_circle_outline),
-              label: const Text('Confirmar Agendamento'),
-              onPressed: isFormReady
-                  ? () {
-                      // Lógica para confirmar o agendamento
-                      final String confirmationMessage =
-                          'Coleta de "$_selectedMaterial" agendada com sucesso!';
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(confirmationMessage),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                      // Voltar para a tela anterior
-                      Navigator.of(context).pop();
-                    }
-                  : null,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              // Seletor de data
+              ListTile(
+                leading: const Icon(Icons.calendar_today),
+                title: const Text('Data da Coleta'),
+                subtitle: Text(_selectedDate == null
+                    ? 'Nenhuma data selecionada'
+                    : '${_selectedDate!.day.toString().padLeft(2, '0')}/${_selectedDate!.month.toString().padLeft(2, '0')}/${_selectedDate!.year}'),
+                onTap: () => _selectDate(context),
               ),
-            ),
-          ],
+              const Divider(),
+
+              // Seletor de hora
+              ListTile(
+                leading: const Icon(Icons.access_time),
+                title: const Text('Hora da Coleta'),
+                subtitle: Text(_selectedTime == null
+                    ? 'Nenhuma hora selecionada'
+                    : _selectedTime!.format(context)),
+                onTap: () => _selectTime(context),
+              ),
+              const Spacer(),
+
+              // Botão de confirmação
+              ElevatedButton.icon(
+                icon: const Icon(Icons.check_circle_outline),
+                label: const Text('Confirmar Agendamento'),
+                onPressed: isFormReady
+                    ? () {
+                        // Lógica para confirmar o agendamento
+                        final String confirmationMessage =
+                            'Coleta de "$_selectedMaterial" agendada com sucesso!';
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(confirmationMessage),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                        // Voltar para a tela anterior
+                        Navigator.of(context).pop();
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

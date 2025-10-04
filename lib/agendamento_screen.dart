@@ -78,7 +78,7 @@ class AgendamentoScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Navega para a nova rota de nível superior
-          context.go('/novo-agendamento');
+          context.push('/novo-agendamento');
         },
         label: const Text('Novo Agendamento'),
         icon: const Icon(Icons.add),
