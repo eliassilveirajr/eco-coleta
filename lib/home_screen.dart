@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 // Importe as telas que serão usadas na navegação
 import 'package:myapp/agendamento_screen.dart';
 import 'package:myapp/configuracoes_screen.dart';
+import 'package:myapp/pontos_coleta_screen.dart'; // Importa a nova tela
 import 'package:myapp/profile_screen.dart';
 import 'package:myapp/trocas_screen.dart';
 
@@ -20,20 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0; // Índice da tela selecionada
 
   // Lista de telas que o Drawer pode navegar
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     DashboardContent(), // O conteúdo original da HomeScreen
-    ProfileScreen(),
     AgendamentoScreen(),
+    PontosColetaScreen(), // Nova tela
     TrocasScreen(),
+    ProfileScreen(),
     ConfiguracoesScreen(),
   ];
 
   // Lista de títulos correspondentes a cada tela
   static const List<String> _widgetTitles = <String>[
     'ECO COLETA',
-    'Meu Perfil',
     'Agendamentos',
+    'Pontos de Coleta', // Novo título
     'Trocas e Recompensas',
+    'Meu Perfil',
     'Configurações',
   ];
 
@@ -102,14 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () => _onSelectItem(0),
           ),
           _buildDrawerItem(
-            icon: Icons.person,
-            text: 'Perfil',
+            icon: Icons.calendar_today,
+            text: 'Agendamento',
             isSelected: _selectedIndex == 1,
             onTap: () => _onSelectItem(1),
           ),
           _buildDrawerItem(
-            icon: Icons.calendar_today,
-            text: 'Agendamento',
+            icon: Icons.location_on,
+            text: 'Pontos de Coleta',
             isSelected: _selectedIndex == 2,
             onTap: () => _onSelectItem(2),
           ),
@@ -120,10 +123,16 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () => _onSelectItem(3),
           ),
           _buildDrawerItem(
-            icon: Icons.settings,
-            text: 'Configurações',
+            icon: Icons.person,
+            text: 'Perfil',
             isSelected: _selectedIndex == 4,
             onTap: () => _onSelectItem(4),
+          ),
+          _buildDrawerItem(
+            icon: Icons.settings,
+            text: 'Configurações',
+            isSelected: _selectedIndex == 5,
+            onTap: () => _onSelectItem(5),
           ),
           const Divider(),
           _buildDrawerItem(
@@ -228,13 +237,13 @@ class DashboardContent extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Plástico', '+ R\$ 5,00', '10/07/2024', Colors.green),
+        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Plástico', '+ R\$ 5,00', '10/07/2025', Colors.green),
         const Divider(),
-        _buildHistoricoItem(context, Icons.shopping_bag, 'Troca por Desconto', '- 500 pts', '08/07/2024', Colors.orange),
+        _buildHistoricoItem(context, Icons.shopping_bag, 'Troca por Desconto', '- 500 pts', '08/07/2025', Colors.orange),
         const Divider(),
-        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Vidro', '+ R\$ 7,50', '05/07/2024', Colors.green),
+        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Vidro', '+ R\$ 7,50', '05/07/2025', Colors.green),
         const Divider(),
-        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Metal', '+ R\$ 10,00', '02/07/2024', Colors.green),
+        _buildHistoricoItem(context, Icons.recycling, 'Coleta de Metal', '+ R\$ 10,00', '02/07/2025', Colors.green),
       ],
     );
   }
